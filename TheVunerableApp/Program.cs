@@ -13,6 +13,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using TheVunerableApp.Controller;
 using TheVunerableApp.DataSource;
 using TheVunerableApp.Model;
@@ -30,28 +31,46 @@ namespace TheVunerableApp
         static void Main(string[] args)
         {
             Console.WriteLine("Start");
-           //Program.DbSetUpForTesting(); // For setup only Do not use it unless the db is in inconsistence state.
+            //Program.DbSetUpForTesting(); // For setup only Do not use it unless the db is in inconsistence state.
 
 
             /* Following are test methods that you can use individually to run some test drivers for the code.
              * However, you should be writing your test code in Test.cs */
-            Program.CreateUser();
+            //Program.CreateUser();
             // Program.UpdateCustomerDetails();
-             //Program.DisplayUserDetails();
+            //Program.DisplayUserDetails();
             //Program.SearchCustomerByAccountNumeber();
-             // Program.getAllUserAccounts();
+            // Program.getAllUserAccounts();
             //Program.AddCustomerToAccount();
             //Program.getAccountBalance();
             //Program.PrintFilePathsFromAppSettings();
             // Program.CloseCustomerAccount();
-           // Program.closeAccount();  //closes account based on the parameters in Test class
+
+
+            // Program.closeAccount();  //closes account based on the parameters in Test class
+            // Program.createTransaction();
+            Program.loadTransaction();
 
         }
+        private static void loadTransaction()
+        {
+            Test.Test.loadTransaction();
+
+        }
+
+       
         private static void closeAccount()
         {
             Test.Test.closeAccount();
-            //Console.WriteLine("Account removed");
+            
         }
+
+
+
+
+
+
+
         private static void PrintFilePathsFromAppSettings()
         {
             Console.WriteLine(TransactionController.getTRPath());

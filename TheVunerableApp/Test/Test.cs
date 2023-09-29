@@ -22,6 +22,11 @@ namespace TheVunerableApp.Test
         {
             AccountController.CloseAccount("6763996216", "46101163", "SSB19-01355436A");
         }
-   
+
+        public static void loadTransaction()
+        {
+            TransactionController.LoadTransaction("badfile");
+
+        }
     }
 }

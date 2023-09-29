@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using TheVunerableApp.DataSource;
 using TheVunerableApp.Model;
@@ -38,6 +39,7 @@ namespace TheVunerableApp.Controller
         public static void LoadTransaction(string path)
         {
             LocalStore store = new LocalStore();
+            store.LoadTransaction(Path.Combine(store.FilePath,path));
 
         }
     }
