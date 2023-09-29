@@ -434,19 +434,24 @@ namespace TheVunerableApp.DataSource
             }
             return null;
         }
-        public bool getAuthForTest()
+        public bool getAuthForTest(string authUserID)
         {
-            string query = "Select * FROM AUTH";
+            string query = "Select * FROM AUTH Where UserId = @authUserID";
             using (SQLiteConnection conn = new SQLiteConnection(ConnectionString))
             {
                 conn.Open();
                 using (SQLiteCommand cmd = new SQLiteCommand(query, conn)) 
-                { 
+                {
+                    cmd.Parameters.AddWithValue("@authUserID", authUserID);
                     using (SQLiteDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            Console.WriteLine(reader.GetString(0));
+                            Console.WriteLine(reader.GetString(2));
+                            if(reader.GetString(2) == "Admin")
+                            {
+                                return true;
+                            }
                         }
                     }
                 }

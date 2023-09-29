@@ -35,6 +35,13 @@ namespace TheVunerableApp.View
             string id = Console.ReadLine();
             Console.WriteLine("Please enter your first time password");
             string password = Console.ReadLine();
+            /*1. 
+             * Identified as CWE-20 Improper input Validation
+             * 29/09/2023 Identified by nishan Shrestha
+             * 29/09/2023 Exploited by nishan Shrestha
+             * 29/09/2023 patched by nishan Shrestha
+             */
+
             Console.WriteLine("Please enter your email address");
             string email = Console.ReadLine();
 

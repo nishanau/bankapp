@@ -35,18 +35,23 @@ namespace TheVunerableApp
 
             /* Following are test methods that you can use individually to run some test drivers for the code.
              * However, you should be writing your test code in Test.cs */
-
+            Program.CreateUser();
             // Program.UpdateCustomerDetails();
              //Program.DisplayUserDetails();
             //Program.SearchCustomerByAccountNumeber();
-              Program.getAllUserAccounts();
+             // Program.getAllUserAccounts();
             //Program.AddCustomerToAccount();
             //Program.getAccountBalance();
             //Program.PrintFilePathsFromAppSettings();
-           // Program.CloseCustomerAccount();
+            // Program.CloseCustomerAccount();
+           // Program.closeAccount();  //closes account based on the parameters in Test class
 
         }
-
+        private static void closeAccount()
+        {
+            Test.Test.closeAccount();
+            //Console.WriteLine("Account removed");
+        }
         private static void PrintFilePathsFromAppSettings()
         {
             Console.WriteLine(TransactionController.getTRPath());
@@ -85,11 +90,11 @@ namespace TheVunerableApp
         {
            Console.WriteLine(AccountController.GetAccountBalance("89048295"));
         }
-        private static void CloseCustomerAccount()
-        {
-            AccountController.CloseAccount("6763996216", "89048295");
-        }
-   
+        /* private static void CloseCustomerAccount()
+         {
+             AccountController.CloseAccount("6763996216", "89048295");
+         }*/
+
         private static void DbSetUpForTesting()
         {   /*
             //This is just a driver method to create baseline dataset for testing of the system

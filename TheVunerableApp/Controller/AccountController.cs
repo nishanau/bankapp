@@ -35,17 +35,27 @@ namespace TheVunerableApp.Controller
             return null;
         }
 
-        public static string CloseAccount(string customerId, string accountNumber)
+        public static string CloseAccount(string customerId, string accountNumber, string authUserID)
         { /*1. 
            * Identified as CWE-306: Missing Authentication for Critical Function
            * 28/09/2023 Identified by Nishan Shrestha
-           * Exploited by Nishan Shrestha
-           * Patched and tested By Nishan Shrestha
+           * 29/09/2023 Exploited by Nishan Shrestha
+           * 29/09/2023 Patched and tested By Nishan Shrestha
            */
+
             SQLiteDB db = new SQLiteDB();
-            db.CloseAccount(accountNumber);
-            accountNumber = null; 
-            return accountNumber; 
+            if (db.getAuthForTest(authUserID) == true)
+            {
+                db.CloseAccount(accountNumber);
+                Console.WriteLine("Account Closed");
+                accountNumber = null;
+                return accountNumber;
+            }
+            else
+              Console.WriteLine("Not Authorized to close customer account.");
+            return null;
+
+            
         }
         public static List<string> SearchAccountByCustomer(string customerId) 
         {

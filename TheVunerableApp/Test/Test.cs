@@ -10,11 +10,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheVunerableApp.Controller;
 
 namespace TheVunerableApp.Test
 {
     internal class Test
     {
         //Added over here
+            
+        public static void closeAccount()
+        {
+            AccountController.CloseAccount("6763996216", "46101163", "SSB19-01355436A");
+        }
+   
     }
 }
