@@ -10,10 +10,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using System.Xml.Linq;
 using TheVunerableApp.Controller;
 using TheVunerableApp.DataSource;
 using TheVunerableApp.Model;
@@ -30,9 +32,20 @@ namespace TheVunerableApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Start");
-            //Program.DbSetUpForTesting(); // For setup only Do not use it unless the db is in inconsistence state.
 
+
+            Console.WriteLine("Start");
+            /*1.  
+             * 30/09/2023 Identified as CWE-287 Improper Authentication
+             * 30/09/2023 Identified by Namita Odari
+             * 30/09/2023 Exploited by Namita Odari
+             * 30/09/2023 Patched by Namita Odari
+             */
+            Program.userAuthentication();
+
+
+            //Program.DbSetUpForTesting(); // For setup only Do not use it unless the db is in inconsistence state.
+            //used for user authentication
 
             /* Following are test methods that you can use individually to run some test drivers for the code.
              * However, you should be writing your test code in Test.cs */
@@ -49,7 +62,8 @@ namespace TheVunerableApp
 
             // Program.closeAccount();  //closes account based on the parameters in Test class
             // Program.createTransaction();
-            Program.loadTransaction();
+           // Program.loadTransaction();
+            //Program.accountBalance();
 
         }
         private static void loadTransaction()
@@ -65,7 +79,25 @@ namespace TheVunerableApp
             
         }
 
+        private static void accountBalance()
+        {
+            Test.Test.accountBalance();
 
+        }
+        private static void userAuthentication()
+        {
+            
+            Console.WriteLine("Enter username: ");
+            string username = (Console.ReadLine());
+
+            SQLiteDB db = new SQLiteDB();
+            if (db.getAuthForTest(username))
+            {
+                Console.WriteLine("Logged in as Admin");
+                UserController.SetIsAdmin(true);
+            }
+            else Console.WriteLine("Logged in as Customer");
+        }
 
 
 
@@ -84,9 +116,35 @@ namespace TheVunerableApp
         {
             AdminView.CreateUser();
         }
+
+        /*1. 
+         * 30/09/2023 Identified as CWE-20: Improper Input Validation
+         * 30/09/2023 Identified by Nishan Shrestha
+         * 30/09/2023 Exploited by Nishan Shrestha
+         * 30/09/2023 Patched by Nishan Shrestha
+         * 
+         * Old Code:
+         *          private static void UpdateCustomerDetails() 
+                {
+                    UserController.UpdateUser("6763996216", "Jean", "Grey", "j.grey@xmen.com", "321-456-9876");
+                 }
+         */
         private static void UpdateCustomerDetails() 
-        {
-            UserController.UpdateUser("6763996216", "Jean", "Grey", "j.grey@xmen.com", "321-456-9876");
+        {   
+
+            //these data will be retrieved from the user in a real app
+            string customerId = "6763996216";
+            string fname = "Jean";
+            string sname = "Grey";
+            string email = "j.grey@xmen.com";
+            string govId = "321-456-9876"; 
+
+            if (string.IsNullOrWhiteSpace(customerId) || string.IsNullOrWhiteSpace(fname) ||
+            string.IsNullOrWhiteSpace(sname) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(govId))
+            {
+                throw new ArgumentException("All parameters must be non-null and non-empty.");
+            }
+            UserController.UpdateUser(customerId, fname, sname, email, govId );
         }
         private static void DisplayUserDetails() 
         {

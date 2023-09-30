@@ -21,7 +21,7 @@ namespace TheVunerableApp.Controller
         public static string getTRPath()
         {
             LocalStore store = new LocalStore();
-            return store.FilePath;
+            return store.FilePath; // cwe 22- improper limitation of a pathname to a restricted direcroty
         }
 
         public static string StoreTransactions(string sAccount, double amount, string tAccount)

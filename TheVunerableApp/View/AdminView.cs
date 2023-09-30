@@ -58,8 +58,12 @@ namespace TheVunerableApp.View
                     break;
 
             }
-
-            Console.WriteLine("User created successfully with id:{0}", userId);
+            if (userId == "Not Authorized")
+            {
+                Console.WriteLine("Not Authorized to create accounts.");
+            }
+            else { Console.WriteLine("User created successfully with id:{0}", userId); }
+            
         } 
     }
 

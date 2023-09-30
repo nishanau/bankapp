@@ -21,6 +21,7 @@ namespace TheVunerableApp.DataSource
     {
         public string ConnectionString = "Data Source=VulApp.db";
         public string Filepath = @"C:\Users\mbamin\source\repos\TheVunerableApp\TheVunerableApp\DB\Bank.sqlite";
+        
         public bool ConnectToDS()
         {
             using (SQLiteConnection conn = new SQLiteConnection(ConnectionString))
@@ -276,6 +277,8 @@ namespace TheVunerableApp.DataSource
         {
             string userQuery = "INSERT INTO User (UserId, Name, SirName, Email, GovId) VALUES (@id, @name, @sName, @email, @govId)";
             string authQuery = "INSERT INTO Auth (UserId, Password, Role) VALUES (@id, @password, @role)";
+            
+             
 
             if (flag == 1) // true means create an Admin user
             {
@@ -356,6 +359,8 @@ namespace TheVunerableApp.DataSource
                 Console.WriteLine("Unknow user type");
                 System.Diagnostics.Debug.Assert(false, "Unknown User Type");
             }
+            
+            
             return true;
         }
         
@@ -436,7 +441,7 @@ namespace TheVunerableApp.DataSource
         }
         public bool getAuthForTest(string authUserID)
         {
-            string query = "Select * FROM AUTH Where UserId = @authUserID";
+            string query = "Select * FROM AUTH Where UserId = @authUserID ";
             using (SQLiteConnection conn = new SQLiteConnection(ConnectionString))
             {
                 conn.Open();
@@ -452,13 +457,14 @@ namespace TheVunerableApp.DataSource
                             {
                                 return true;
                             }
+                            
                         }
                     }
                 }
                 conn.Close();
                 return false;
             }
-            return false; 
+           
         }
     }
 }
